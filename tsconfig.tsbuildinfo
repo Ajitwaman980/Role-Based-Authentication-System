@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/config/mongo.ts","./src/middleware/admin.ts","./src/middleware/userval.ts","./src/middleware/verifytoken.ts","./src/model/user.ts","./src/routes/user.ts"],"version":"5.6.2"}
+{"root":["./src/index.ts","./src/config/mongo.ts","./src/controller/admin.ts","./src/controller/index.ts","./src/controller/user.ts","./src/middleware/admin.ts","./src/middleware/index.ts","./src/middleware/userval.ts","./src/middleware/verifytoken.ts","./src/model/user.ts","./src/routes/admin.ts","./src/routes/index.ts","./src/routes/user.ts"],"version":"5.6.2"}

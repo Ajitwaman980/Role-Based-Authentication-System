@@ -1,31 +1,44 @@
-// import { NextFunction } from "express";
+import express, { NextFunction, Request, Response } from "express";
+import UserDataSchema from "../model/user";
+import jwt from "jsonwebtoken";
+interface CustomRequest extends Request {
+  user?: any;
+}
+interface JwtPayload {
+  id: string;
+  email: string;
+}
 
-// export const verifyAdmin = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const token = req.cookies.user;
+export const verifyAdmin = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.cookies.user;
 
-//   if (!token) {
-//     res.status(403).json({ message: "Access Denied, No Token Provided" });
-//     return;
-//   }
+  if (!token) {
+    res.status(403).json({ message: "Access Denied, No Token Provided" });
+    return;
+  }
 
-//   try {
-//     const decoded = jwt.verify(token, "jwtsecret");
-//     const user = await UserDataSchema.findById(req.user.id);
+  try {
+    const decoded = jwt.verify(token, "jwtSecret") as { id: string };
+    const user = await UserDataSchema.findById(decoded.id);
 
-//     if (!user || user.role !== "admin") {
-//       res.status(403).json({ message: "Access Denied, Not Admin" });
-//       return;
-//     }
+    if (!user) {
+      res.status(403).json({ message: "Access Denied, Not Admin" });
+      return;
+    }
 
-//     req.user = user;
-//     next();
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ message: "Failed to authenticate token" });
-//     return;
-//   }
-// };
+    if (!(user.role == "Admin")) {
+      res.status(403).json({ message: "Access Denied, Not Admin" });
+      return;
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to authenticate token" });
+    return;
+  }
+};
