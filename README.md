@@ -1,6 +1,6 @@
 # Role-Based Authentication System
 
-' This secure Node.js and Express.js application implements Redis for session management, JWT for authentication, and role-based access control. Admins can perform user CRUD operations, while employees have restricted access '
+This secure Node.js and Express.js application implements  Role-Based Authentication System , JWT for authentication, and role-based access control. Admins can perform user CRUD operations, while employees have restricted access and Optimizing Node. js Performance with Redis Caching
 
 git clone
 ```
